@@ -35,7 +35,7 @@ Lita.configure do |config|
   # config.redis.port = 1234
 
   ENV.each do |key, value|
-    next unless key =~ /CONFIG/
+    next unless key =~ /^CONFIG/
     config_name = key.downcase.sub!('_', '.') + '=' + get_value_from_str(value)
     eval(config_name)
   end
