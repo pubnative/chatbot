@@ -1,14 +1,6 @@
 # frozen_string_literal: true
 
 Lita.configure do |config|
-  def get_value_from_str(value)
-    case value
-    when 'true', 'false', /^:.+/, /^[0..9]+$/
-      value
-    else
-      value.inspect
-    end
-  end
   # The name your robot will use.
   config.robot.name = ENV['ROBOT_NAME']
   config.robot.mention_name = ENV['ROBOT_MENTION_NAME']
@@ -29,6 +21,8 @@ Lita.configure do |config|
   config.handlers.teamcity.user = ENV['TEAMCITY_USER']
   config.handlers.teamcity.password = ENV['TEAMCITY_PASSWORD']
 
+  config.handlers.marathon.url = ENV['MARATHON_URL']
+  
   # The locale code for the language to use.
   config.robot.locale = :en
 
@@ -53,12 +47,6 @@ Lita.configure do |config|
   ## Example: Set options for the Redis connection.
   # config.redis.host = "127.0.0.1"
   # config.redis.port = 1234
-
-  ENV.each do |key, value|
-    next unless key =~ /^CONFIG/
-    config_name = key.downcase.sub!('_', '.') + '=' + get_value_from_str(value)
-    eval(config_name)
-  end
 
   config.redis[:url] = ENV['REDIS_URL']
 
