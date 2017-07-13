@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Lita.configure do |config|
   def get_value_from_str(value)
     case value
@@ -8,6 +10,24 @@ Lita.configure do |config|
     end
   end
   # The name your robot will use.
+  config.robot.name = ENV['ROBOT_NAME']
+  config.robot.mention_name = ENV['ROBOT_MENTION_NAME']
+  config.robot.alias = ENV['ROBOT_ALIAS']
+  config.robot.adapter = ENV['ROBOT_ADAPTER'].to_sym
+  config.robot.admins = ENV['ROBOT_ADMINS'].split(',')
+
+  config.adapters.slack.token = ENV['SLACK_TOKEN']
+  config.adapters.slack.link_names = ENV['SLACK_LINK_NAMES'] == 'true'
+  config.adapters.slack.parse = ENV['SLACK_PARSE']
+  config.adapters.slack.unfurl_links = ENV['SLACK_UNFURL_LINKS'] == 'true'
+  config.adapters.slack.unfurl_media = ENV['SLACK_UNFURL_MEDIA'] == 'true'
+
+  config.handlers.consul.consul_host = ENV['CONSUL_HOST']
+  config.handlers.consul.consul_port = ENV['CONSUL_PORT']
+  
+  config.handlers.teamcity.endpoint = ENV['TEAMCITY_ENDPOINT']
+  config.handlers.teamcity.user = ENV['TEAMCITY_USER']
+  config.handlers.teamcity.password = ENV['TEAMCITY_PASSWORD']
 
   # The locale code for the language to use.
   config.robot.locale = :en
@@ -40,7 +60,7 @@ Lita.configure do |config|
     eval(config_name)
   end
 
-  # config.redis[:url] = ENV['CONFIG_REDIS_URL']
+  config.redis[:url] = ENV['REDIS_URL']
 
   ## Example: Set configuration for any loaded handlers. See the handler's
   ## documentation for options.
