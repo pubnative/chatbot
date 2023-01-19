@@ -58,7 +58,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     puma (3.9.1)
-    rack (1.6.8)
+    rack (1.6.13)
     rb-readline (0.5.4)
     redis (3.3.3)
     redis-namespace (1.5.3)
